@@ -5,18 +5,31 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import java.util.ArrayList
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
-
+class MainActivity : AppCompatActivity(), RecycleviewAdapter.OnItemClickListener {
+    private val mRecyclerview by lazy {findViewById<RecyclerView>(R.id.recyclerview) }
+    private var mData = mutableListOf("灰度", "高斯模糊")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<TextView>(R.id.jump_gray)?.setOnClickListener(this);
+        mRecyclerview.layoutManager = LinearLayoutManager(this)
+        val dividerDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        dividerDecoration.setDrawable(resources.getDrawable(R.drawable.bg_divider))
+        mRecyclerview.addItemDecoration(dividerDecoration)
+        val adapter = RecycleviewAdapter(mData)
+        adapter.setOnItemClickListener(this)
+        mRecyclerview.adapter = adapter
     }
 
-    override fun onClick(view: View?) {
-        if (view?.id == R.id.jump_gray){
-            startActivity(Intent(this,GrayActivity::class.java))
-        }
+    override fun onItemClick(view: View?, position: Int) {
+       if (position == 0){
+           startActivity(Intent(this,GrayActivity::class.java))
+       } else  if (position == 1){
+           startActivity(Intent(this,GaussianActivity::class.java))
+       }
     }
 }
