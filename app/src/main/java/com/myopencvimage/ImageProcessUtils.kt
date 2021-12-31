@@ -2,10 +2,7 @@ package com.myopencvimage
 
 import android.graphics.Bitmap
 import org.opencv.android.Utils
-import org.opencv.core.CvType
-import org.opencv.core.Mat
-import org.opencv.core.Point
-import org.opencv.core.Size
+import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
 
 object ImageProcessUtils {
@@ -90,5 +87,20 @@ object ImageProcessUtils {
             }
         }
         return kernel
+    }
+
+    /**
+     * 均值模糊
+     * @param bitmap
+     */
+    fun meanBlur(bitmap: Bitmap?) : Bitmap? {
+        val src = Mat()
+        val dst = Mat()
+        Utils.bitmapToMat(bitmap, src)
+        Imgproc.blur(src, dst, Size(30.0, 30.0), Point(-1.0, -1.0), Core.BORDER_DEFAULT)
+        Utils.matToBitmap(dst, bitmap)
+        src.release()
+        dst.release()
+        return bitmap
     }
 }
