@@ -23,6 +23,7 @@
         <activity android:name=".GaussianActivity"/>
         <activity android:name=".CustomerGaussianActivity"/>
         <activity android:name=".MeanBlurActivity"/>
+        <activity android:name=".BiBlurActivity"/>
     </application>
 
 </manifest>

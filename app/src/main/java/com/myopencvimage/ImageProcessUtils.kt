@@ -103,4 +103,23 @@ object ImageProcessUtils {
         dst.release()
         return bitmap
     }
+
+    /**
+     * 双边模糊
+     * @param bitmap
+     */
+    fun biBlur(bitmap: Bitmap?) : Bitmap? {
+        val src = Mat()
+        val dst = Mat()
+        Utils.bitmapToMat(bitmap, src)
+        Imgproc.cvtColor(src, src, Imgproc.COLOR_BGRA2BGR)
+        Imgproc.bilateralFilter(src, dst, 15, 150.0, 15.0, Core.BORDER_DEFAULT) //双边模糊
+        val kernel = Mat(3, 3, CvType.CV_16S) //锐化
+        kernel.put(0, 0, 0.0, -1.0, 0.0, -1.0, 5.0, -1.0, 0.0, -1.0, 0.0) //锐化算子
+        Imgproc.filter2D(dst, dst, -1, kernel, Point(-1.0, -1.0), 0.0, 4)
+        Utils.matToBitmap(dst, bitmap)
+        src.release()
+        dst.release()
+        return bitmap
+    }
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), RecycleviewAdapter.OnItemClickListener {
     private val mRecyclerview by lazy {findViewById<RecyclerView>(R.id.recyclerview) }
-    private var mData = mutableListOf("灰度", "高斯模糊", "自定义模糊效果", "均值模糊")
+    private var mData = mutableListOf("灰度", "高斯模糊", "自定义模糊效果", "均值模糊", "双边模糊")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity(), RecycleviewAdapter.OnItemClickListener
             }
             3 -> {
                 startActivity(Intent(this,MeanBlurActivity::class.java))
+            }
+            4 -> {
+                startActivity(Intent(this,BiBlurActivity::class.java))
             }
         }
     }
